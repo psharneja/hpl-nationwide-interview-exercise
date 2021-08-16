@@ -1,0 +1,9 @@
+mutation CreateProperty($options: PropertyInput!) {
+  createProperty(input: $options) {
+    _id
+    text
+    title
+    creator_id   
+    imageUrl 
+  }
+}

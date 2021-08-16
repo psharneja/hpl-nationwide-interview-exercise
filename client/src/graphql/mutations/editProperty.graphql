@@ -1,0 +1,3 @@
+mutation EditProperty($imageUrl: String!, $title: String!, $id: Float!) {
+  editProperty(imageUrl: $imageUrl, title: $title, id: $id) 
+}

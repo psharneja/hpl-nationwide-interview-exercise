@@ -25,6 +25,7 @@ export type Mutation = {
   register: PersonResponse;
   login: PersonResponse;
   createProperty?: Maybe<Property>;
+  editProperty?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -41,6 +42,13 @@ export type MutationLoginArgs = {
 
 export type MutationCreatePropertyArgs = {
   input: PropertyInput;
+};
+
+
+export type MutationEditPropertyArgs = {
+  imageUrl: Scalars['String'];
+  title: Scalars['String'];
+  id: Scalars['Float'];
 };
 
 export type Person = {
@@ -98,6 +106,15 @@ export type CreatePropertyMutationVariables = Exact<{
 
 export type CreatePropertyMutation = { __typename?: 'Mutation', createProperty?: Maybe<{ __typename?: 'Property', _id: number, text: string, title: string, creator_id: number, imageUrl: string }> };
 
+export type EditPropertyMutationVariables = Exact<{
+  imageUrl: Scalars['String'];
+  title: Scalars['String'];
+  id: Scalars['Float'];
+}>;
+
+
+export type EditPropertyMutation = { __typename?: 'Mutation', editProperty?: Maybe<boolean> };
+
 export type LoginMutationVariables = Exact<{
   password: Scalars['String'];
   username: Scalars['String'];
@@ -140,6 +157,15 @@ export const CreatePropertyDocument = gql`
 
 export function useCreatePropertyMutation() {
   return Urql.useMutation<CreatePropertyMutation, CreatePropertyMutationVariables>(CreatePropertyDocument);
+};
+export const EditPropertyDocument = gql`
+    mutation EditProperty($imageUrl: String!, $title: String!, $id: Float!) {
+  editProperty(imageUrl: $imageUrl, title: $title, id: $id)
+}
+    `;
+
+export function useEditPropertyMutation() {
+  return Urql.useMutation<EditPropertyMutation, EditPropertyMutationVariables>(EditPropertyDocument);
 };
 export const LoginDocument = gql`
     mutation Login($password: String!, $username: String!) {

@@ -17,28 +17,35 @@ import {
 import React from "react";
 import NextLink from "next/link";
 import { usePropertiesQuery } from "../generated/graphql";
+import { useRouter } from "next/router";
 
 export const Gallery: React.FC<{}> = ({}) => {
+  const router = useRouter();
+
   const [{ data }] = usePropertiesQuery({});
   const properties = data?.properties;
 
+  const editProperty = (id: any) => {
+    router.push(`/edit-property/${id}`);
+  };
   const displayProperties = () => {
     return properties?.map((res) => {
       return (
         <WrapItem key={res._id}>
-          <Box
-            
-            maxW="sm"
-            borderWidth="1px"
-            borderRadius="lg"
-            overflow="hidden"
-          >
+          <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
             <Image src={res?.imageUrl} />
 
             <Box p="6">
               <Box d="flex" alignItems="baseline">
-                <Badge borderRadius="full" px="2" colorScheme="teal">
-                  New
+                <Badge
+                  onClick={() => {
+                    editProperty(res._id);
+                  }}
+                  borderRadius="full"
+                  px="2"
+                  colorScheme="teal"
+                >
+                  edit property...
                 </Badge>
                 <Box
                   color="gray.500"

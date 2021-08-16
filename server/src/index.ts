@@ -2,45 +2,48 @@ import "reflect-metadata";
 import "dotenv-safe/config";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-// import { buildSchema } from "type-graphql";
+import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
-import cors from "cors";
+// import cors from "cors";
 // import path from "path";
-import { __prod__ } from "./constants";
-
+import { __prod__ } from "./utils/constants";
+import { Property } from "./entities/Property";
+import { Person } from "./entities/Person";
+import { PersonResolver } from "./resolvers/person";
+import { HelloResolver } from "./resolvers/hello";
 
 const main = async () => {
-    console.log(process.env, "yoo")
-
-   await createConnection({
-        type: "postgres",
-        url: process.env.DATABASE_URL,
-        logging: true,
-        // synchronize: true,
-        // migrations: [path.join(__dirname, "./migrations/*")],
-        // entities: [Post, User],
-      });
-
+  const conn = await createConnection({
+    type: "postgres",
+    url: process.env.DATABASE_URL,
+    logging: true,
+    synchronize: true,
+    entities: [Property, Person],
+  });
+  conn.runMigrations();
   const app = express();
-  app.set("trust proxy", 1);
-  app.use(
-    cors({
-      origin: process.env.CORS_ORIGIN,
-      credentials: true,
-    })
-  );
-  const apolloServer = new ApolloServer({});
+    app.set("trust proxy", 1);
+  //   app.use(
+  //     cors({
+  //       origin: process.env.CORS_ORIGIN,
+  //       credentials: true,
+  //     })
+  //   );
+  const apolloServer = new ApolloServer({
+    schema: await buildSchema({
+      resolvers: [PersonResolver, HelloResolver],
+      validate: false,
+    }),
+  });
 
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app, cors: false });
+  apolloServer.applyMiddleware({ app });
 
   app.listen(process.env.PORT, () => {
-    console.log(" server started on localhost:4000");
+    console.log(`server started on port ${process.env.PORT}`);
   });
-
-
-}
+};
 
 main().catch((err) => {
-    console.error("Error starting Server", err);
-  });
+  console.error("Error starting Server", err);
+});

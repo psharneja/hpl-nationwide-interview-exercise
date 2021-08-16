@@ -1,15 +1,13 @@
-import { Box, Button, Link } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import { NextPage } from 'next';
 import { withUrqlClient } from 'next-urql';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React from 'react';
 import InputField from '../../components/InputField';
 import Wrapper from '../../components/Wrapper';
 import { useEditPropertyMutation } from '../../generated/graphql';
 import { createUrqlClient } from '../../utils/createUrqlClient';
-import { toErrorMap } from '../../utils/toErrorMap';
-import NextLink from 'next/link';
 
 const EditProperty: NextPage<{token: string}>= ({token}) => {
   const router = useRouter(); 

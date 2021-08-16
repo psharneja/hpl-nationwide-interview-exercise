@@ -33,7 +33,7 @@ export const Gallery: React.FC<{}> = ({}) => {
       return (
         <WrapItem key={res._id}>
           <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-            <Image src={res?.imageUrl} />
+            <Image src={res?.imageUrl} alt="" />
 
             <Box p="6">
               <Box d="flex" alignItems="baseline">

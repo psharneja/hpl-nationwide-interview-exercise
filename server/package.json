@@ -6,6 +6,7 @@
     "scripts": {
         "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
         "watch": "tsc -w",
+        "build": "tsc",
         "start": "ts-node src/index.ts",
         "dev": "nodemon --exec ts-node src/index.ts",
         "prestart:prod": "tsc --build",

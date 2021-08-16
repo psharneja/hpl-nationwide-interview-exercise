@@ -1,0 +1,11 @@
+query Properties{
+  properties {
+    _id
+    text
+    title
+    createdAt
+    creator_id
+    imageUrl
+
+  }
+}

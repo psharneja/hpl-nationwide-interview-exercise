@@ -19,6 +19,9 @@ class PropertyInput {
   @Field()
   creator_id: number;
 
+  @Field()
+  imageUrl: string;
+
 }
 
 
@@ -26,7 +29,7 @@ class PropertyInput {
 export class PropertyResolver {
 
   @Query(() => Property, { nullable: true })
-  post(@Arg("id") id: number): Promise<Property | undefined> {
+  property(@Arg("id") id: number): Promise<Property | undefined> {
     return Property.findOne(id);
   }
 
@@ -42,8 +45,28 @@ export class PropertyResolver {
   }
 
 
-  @Query(() => [Property])
-  properties(): Promise<Property[]> {
+  @Query(() => [Property], {nullable: true})
+  properties(): Promise<Property[] | undefined> {
     return Property.find();
+  }
+
+  @Mutation(() => Boolean, { nullable: true })
+  async editProperty(
+    @Arg("id") _id: number,
+    @Arg("title", () => String) title: string,
+    @Arg("imageUrl", () => String) imageUrl: string
+  ): Promise<Boolean | null> {
+    const property = await Property.findOne(_id);
+    if (!property) {
+      return null;
+    }
+    let updated;
+    if (typeof title !== "undefined") {
+      updated = await Property.update({ _id }, { imageUrl, title });
+    }
+    if(typeof updated !== 'undefined'){
+      return true;
+    }
+    return false;
   }
 }

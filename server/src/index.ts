@@ -10,7 +10,6 @@ import { __prod__ } from "./utils/constants";
 import { Property } from "./entities/Property";
 import { Person } from "./entities/Person";
 import { PersonResolver } from "./resolvers/person";
-import { HelloResolver } from "./resolvers/hello";
 import { PropertyResolver } from "./resolvers/property";
 
 const main = async () => {
@@ -23,22 +22,22 @@ const main = async () => {
   });
   conn.runMigrations();
   const app = express();
-    app.set("trust proxy", 1);
-  //   app.use(
-  //     cors({
-  //       origin: process.env.CORS_ORIGIN,
-  //       credentials: true,
-  //     })
-  //   );
+    // app.set("trust proxy", 1);
+    // app.use(
+    //   cors({
+    //     origin: process.env.CORS_ORIGIN,
+    //     credentials: true,
+    //   })
+    // );
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PersonResolver, PropertyResolver, HelloResolver],
+      resolvers: [PersonResolver, PropertyResolver],
       validate: false,
     }),
   });
 
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app});
 
   app.listen(process.env.PORT, () => {
     console.log(`server started on port ${process.env.PORT}`);

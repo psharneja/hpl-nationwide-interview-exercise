@@ -24,6 +24,10 @@ export class Property extends BaseEntity {
 
     @Field()
     @Column()
+    imageUrl!: string;
+
+    @Field()
+    @Column()
     text!: string;
     
     @Field()

@@ -1,0 +1,12 @@
+query Property($propertyId: Float!) {
+  property(id: $propertyId) {
+    _id
+    createdAt
+    creator_id
+    updatedAt
+    text
+    title
+    imageUrl
+    
+  }
+}

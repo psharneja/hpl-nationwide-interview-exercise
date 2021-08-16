@@ -10,6 +10,8 @@
         "dev": "nodemon --exec ts-node src/index.ts",
         "prestart:prod": "tsc --build",
         "start:prod": "node dist/index.js",
+        "premigration:create": "tsc --build",
+        "migration:create": "typeorm migration:generate -n Initial",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "prabhsimran singh",

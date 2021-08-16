@@ -11,13 +11,14 @@ import { Property } from "./entities/Property";
 import { Person } from "./entities/Person";
 import { PersonResolver } from "./resolvers/person";
 import { HelloResolver } from "./resolvers/hello";
+import { PropertyResolver } from "./resolvers/property";
 
 const main = async () => {
   const conn = await createConnection({
     type: "postgres",
     url: process.env.DATABASE_URL,
     logging: true,
-    synchronize: true,
+    synchronize: __prod__,
     entities: [Property, Person],
   });
   conn.runMigrations();
@@ -31,7 +32,7 @@ const main = async () => {
   //   );
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [PersonResolver, HelloResolver],
+      resolvers: [PersonResolver, PropertyResolver, HelloResolver],
       validate: false,
     }),
   });

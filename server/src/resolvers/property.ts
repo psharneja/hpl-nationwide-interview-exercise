@@ -61,7 +61,7 @@ export class PropertyResolver {
       return null;
     }
     let updated;
-    if (typeof title !== "undefined") {
+    if (title !== "undefined") {
       updated = await Property.update({ _id }, { imageUrl, title });
     }
     if(typeof updated !== 'undefined'){

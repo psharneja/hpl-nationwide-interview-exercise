@@ -77,3 +77,6 @@ DB creation done by ORM automatically in non-prod environments, sql queries prov
 - Handling Session on Backend either by using im-memory DBs or jwts
 ****
 ****
+
+# check https://psharneja.page for details about the developer
+# this code will be published to https://penguincodes.co.uk

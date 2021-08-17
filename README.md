@@ -83,4 +83,4 @@ DB creation done by ORM automatically in non-prod environments, sql queries prov
 
 
 # check https://psharneja.page for details about the developer
-# this code will be published to https://penguincodes.co.uk
+# this code will be deployed to https://penguincodes.co.uk

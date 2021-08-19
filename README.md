@@ -2,6 +2,7 @@
 
 **Common Improvements**
 - Using Lerna for better monorepo management
+- Session management with cookies
 
 ## Frontend (in client directory)
 
